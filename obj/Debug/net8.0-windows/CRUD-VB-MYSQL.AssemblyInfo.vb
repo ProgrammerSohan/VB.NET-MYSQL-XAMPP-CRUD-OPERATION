@@ -16,7 +16,7 @@ Imports System.Reflection
 <Assembly: System.Reflection.AssemblyCompanyAttribute("CRUD-VB-MYSQL"),  _
  Assembly: System.Reflection.AssemblyConfigurationAttribute("Debug"),  _
  Assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0"),  _
- Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7876a2a060cbe2c80ddaadb911d13495d96abdd0"),  _
+ Assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3f762f4807168f8736f3d240dec1ae69724cd19"),  _
  Assembly: System.Reflection.AssemblyProductAttribute("CRUD-VB-MYSQL"),  _
  Assembly: System.Reflection.AssemblyTitleAttribute("CRUD-VB-MYSQL"),  _
  Assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0"),  _

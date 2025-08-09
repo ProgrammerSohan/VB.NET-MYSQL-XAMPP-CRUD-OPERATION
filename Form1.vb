@@ -44,6 +44,7 @@ Public Class Form1
             cmd.Parameters.AddWithValue("@PRODUCTNO", txt_prono.Text)
             cmd.Parameters.AddWithValue("@PRODUCTNAME", txt_proname.Text)
             cmd.Parameters.AddWithValue("@PRICE", CDec(txt_price.Text))
+            'cmd.Parameters.AddWithValue("@PRICE", txt_price.Text)
             cmd.Parameters.AddWithValue("@GROUP", combo_progroup.Text)
             cmd.Parameters.AddWithValue("@EXPDATE", exp_datepicker.Value)
             cmd.Parameters.AddWithValue("@STATUS", status_checkbox.Checked)
@@ -81,6 +82,47 @@ Public Class Form1
         combo_progroup.Text = DataGridView1.CurrentRow.Cells(3).Value
         exp_datepicker.Text = DataGridView1.CurrentRow.Cells(4).Value
         status_checkbox.Checked = DataGridView1.CurrentRow.Cells(5).Value
+
+        txt_prono.ReadOnly = True
+        Button1.Enabled = False
+
+    End Sub
+
+    Sub Edit()
+        Try
+            conn.Open()
+            Dim cmd As New MySqlCommand("UPDATE `table-crud` SET `PRODUCTNAME`=@PRODUCTNAME,`PRICE`=@PRICE,`GROUP`=@GROUP,`EXPDATE`=@EXPDATE,`STATUS`=@STATUS WHERE
+`PRODUCTNO`=@PRODUCTNO", conn)
+
+            cmd.Parameters.Clear()
+            cmd.Parameters.AddWithValue("@PRODUCTNO", txt_prono.Text)
+            cmd.Parameters.AddWithValue("@PRODUCTNAME", txt_proname.Text)
+            cmd.Parameters.AddWithValue("@PRICE", CDec(txt_price.Text))
+            ' cmd.Parameters.AddWithValue("@PRICE", txt_price.Text)
+            cmd.Parameters.AddWithValue("@GROUP", combo_progroup.Text)
+            cmd.Parameters.AddWithValue("@EXPDATE", exp_datepicker.Value)
+            cmd.Parameters.AddWithValue("@STATUS", status_checkbox.Checked)
+
+            i = cmd.ExecuteNonQuery
+            If i > 0 Then
+                MessageBox.Show("Record Update Successfully !", "CRUD", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Record Update Failed !", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            conn.Close()
+        End Try
+        clear()
+        DGV_load()
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Edit()
+
 
     End Sub
 End Class
