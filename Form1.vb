@@ -3,9 +3,33 @@
 Public Class Form1
     Dim conn As New MySqlConnection("server=localhost;port=3306;username=root;password=;database=vb-mysql-crud")
     Dim i As Integer
+    Dim dr As MySqlDataReader
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        DGV_load()
+    End Sub
+
+    Public Sub DGV_load()
+        DataGridView1.Rows.Clear()
+        Try
+            conn.Open()
+            Dim cmd As New MySqlCommand("SELECT * FROM `table-crud`", conn)
+            dr = cmd.ExecuteReader
+            While dr.Read
+                DataGridView1.Rows.Add(dr.Item("PRODUCTNO"), dr.Item("PRODUCTNAME"), dr.Item("PRICE"), dr.Item("GROUP"), dr.Item("EXPDATE"), Format(CBool(dr.Item("STATUS"))))
+            End While
+            dr.Dispose()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            conn.Close()
+
+        End Try
+
+    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         save()
+        DGV_load()
     End Sub
 
     Private Sub save()
@@ -36,5 +60,27 @@ Public Class Form1
         Finally
             conn.Close()
         End Try
+        clear()
+    End Sub
+
+    Public Sub clear()
+        txt_prono.Clear()
+        txt_proname.Clear()
+        txt_price.Clear()
+        combo_progroup.Text = ""
+        exp_datepicker.Value = Now
+        status_checkbox.CheckState = False
+
+
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+        txt_prono.Text = DataGridView1.CurrentRow.Cells(0).Value
+        txt_proname.Text = DataGridView1.CurrentRow.Cells(1).Value
+        txt_price.Text = DataGridView1.CurrentRow.Cells(2).Value
+        combo_progroup.Text = DataGridView1.CurrentRow.Cells(3).Value
+        exp_datepicker.Text = DataGridView1.CurrentRow.Cells(4).Value
+        status_checkbox.Checked = DataGridView1.CurrentRow.Cells(5).Value
+
     End Sub
 End Class
