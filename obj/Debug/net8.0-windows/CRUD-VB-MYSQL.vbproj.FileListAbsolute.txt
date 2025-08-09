@@ -18,3 +18,4 @@ D:\y-visual-basic-practices\2-vb-projects\CRUD-VB-MYSQL\CRUD-VB-MYSQL\obj\Debug\
 D:\y-visual-basic-practices\2-vb-projects\CRUD-VB-MYSQL\CRUD-VB-MYSQL\obj\Debug\net8.0-windows\CRUD-VB-MYSQL.pdb
 D:\y-visual-basic-practices\2-vb-projects\CRUD-VB-MYSQL\CRUD-VB-MYSQL\obj\Debug\net8.0-windows\CRUD-VB-MYSQL.genruntimeconfig.cache
 D:\y-visual-basic-practices\2-vb-projects\CRUD-VB-MYSQL\CRUD-VB-MYSQL\obj\Debug\net8.0-windows\ref\CRUD-VB-MYSQL.dll
+D:\y-visual-basic-practices\2-vb-projects\CRUD-VB-MYSQL\CRUD-VB-MYSQL\obj\Debug\net8.0-windows\CRUD-VB-MYSQL.sourcelink.json
