@@ -125,4 +125,62 @@ Public Class Form1
 
 
     End Sub
+
+    Public Sub delete()
+        If MsgBox("Are You Sure Delete This Record", MsgBoxStyle.Question + vbYesNo) = vbYes Then
+            Try
+                conn.Open()
+                Dim cmd As New MySqlCommand("DELETE FROM `table-crud` WHERE `PRODUCTNO`=@PRODUCTNO", conn)
+
+                cmd.Parameters.Clear()
+                cmd.Parameters.AddWithValue("@PRODUCTNO", txt_prono.Text)
+
+                i = cmd.ExecuteNonQuery
+                If i > 0 Then
+                    MessageBox.Show("Record Deleted Successfully !", "CRUD", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Else
+                    MessageBox.Show("Record Delete Failed !", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            Finally
+                conn.Close()
+            End Try
+            clear()
+            DGV_load()
+
+        Else
+            Return
+
+        End If
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        delete()
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        clear()
+    End Sub
+
+    Private Sub txt_search_TextChanged(sender As Object, e As EventArgs) Handles txt_search.TextChanged
+        DataGridView1.Rows.Clear()
+        Try
+            conn.Open()
+            Dim cmd As New MySqlCommand("SELECT * FROM `table-crud` WHERE PRODUCTNO like '%" & txt_search.Text & "%' OR PRODUCTNAME like '%" & txt_search.Text & "%'", conn)
+            dr = cmd.ExecuteReader
+            While dr.Read
+                DataGridView1.Rows.Add(dr.Item("PRODUCTNO"), dr.Item("PRODUCTNAME"), dr.Item("PRICE"), dr.Item("GROUP"), dr.Item("EXPDATE"), Format(CBool(dr.Item("STATUS"))))
+            End While
+            dr.Dispose()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            conn.Close()
+
+        End Try
+    End Sub
 End Class
